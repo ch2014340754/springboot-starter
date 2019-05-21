@@ -7,12 +7,17 @@ import org.n3r.idworker.Sid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imooc.pojo.IMoocJSONResult;
 import com.imooc.pojo.SysUser;
 import com.imooc.service.UserService;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("mybatis")
@@ -85,6 +90,7 @@ public class MyBatisCRUDController {
 	}
 	
 	@RequestMapping("/queryUserListPaged")
+	@Transactional(propagation=Propagation.SUPPORTS)
 	public IMoocJSONResult queryUserListPaged(Integer page) {
 		
 		if (page == null) {
@@ -108,13 +114,16 @@ public class MyBatisCRUDController {
 	}
 	
 	@RequestMapping("/saveUserTransactional")
-	public IMoocJSONResult saveUserTransactional() {
-		
+	@Transactional(propagation= Propagation.REQUIRED)
+	public IMoocJSONResult saveUserTransactional(@Valid SysUser user, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()){
+			System.out.println(bindingResult.getFieldError().getDefaultMessage());
+			return  null;
+		}
 		String userId = sid.nextShort();
-		
-		SysUser user = new SysUser();
+
 		user.setId(userId);
-		user.setUsername("lee" + new Date());
+		user.setUsername(user.getUsername());
 		user.setNickname("lee" + new Date());
 		user.setPassword("abc123");
 		user.setIsDelete(0);

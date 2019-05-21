@@ -2,6 +2,7 @@ package com.imooc.pojo;
 
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Table(name = "sys_user")
 public class SysUser {
@@ -26,6 +27,7 @@ public class SysUser {
     /**
      * 年龄
      */
+    @Min(value = 18,message = "滚！")
     private Integer age;
 
     /**
@@ -450,5 +452,29 @@ public class SysUser {
      */
     public void setRegistTime(Date registTime) {
         this.registTime = registTime;
+    }
+
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", job=" + job +
+                ", faceImage='" + faceImage + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", address='" + address + '\'' +
+                ", authSalt='" + authSalt + '\'' +
+                ", lastLoginIp='" + lastLoginIp + '\'' +
+                ", lastLoginTime=" + lastLoginTime +
+                ", isDelete=" + isDelete +
+                ", registTime=" + registTime +
+                '}';
     }
 }
