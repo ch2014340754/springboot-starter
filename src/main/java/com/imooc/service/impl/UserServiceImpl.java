@@ -1,20 +1,18 @@
 package com.imooc.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.thymeleaf.util.StringUtils;
-
 import com.github.pagehelper.PageHelper;
 import com.imooc.mapper.SysUserMapper;
 import com.imooc.mapper.SysUserMapperCustom;
 import com.imooc.pojo.SysUser;
 import com.imooc.service.UserService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
